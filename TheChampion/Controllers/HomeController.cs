@@ -1,67 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TheChampion.ViewModels;
-using TheChampion.Context;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
+using System.Web;
+using System.Web.Mvc;
 
-namespace TheChampion.ViewModels
+namespace TheChampion.Controllers
 {
     public class HomeController : Controller
     {
-        private TheChampionContext DbContext;
-
-        public HomeController(TheChampionContext dbContext)
+        public ActionResult Index()
         {
-            this.DbContext = dbContext;
+            return View();
         }
 
-        public IActionResult Index()
+        public ActionResult About()
         {
+            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        [HttpGet]
-        public IActionResult login(string Error)
+        public ActionResult Contact()
         {
-            ViewBag.Error = Error;
+            ViewBag.Message = "Your contact page.";
+
             return View();
         }
-
-        [HttpPost]
-        public IActionResult login(string LoginName, string LoginPassword, string RememberMe, string ReturnUrl)
-        {
-            if (DbContext.Accounts.Where(a => a.LoginName == LoginName).Count() > 0)
-            {
-                var user = DbContext.Accounts.Where(a => a.LoginName == LoginName).First();
-                if (user.LoginPassword == LoginPassword)
-                {
-                    return Redirect("/home/mainmenu");
-                }
-                else
-                {
-                    return View("Wrong password, please try again.");
-                }
-            }
-            else
-            {
-                return View("LoginName does not exist, please register or try again.");
-            }
-        }
-
-
-        [HttpGet]
-        [Authorize(Policy = "UserOnly")]
-        public IActionResult mainmenu()
-        {
-            
-            return View();
-        }
-
     }
 }
-
