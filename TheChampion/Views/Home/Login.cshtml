@@ -1,0 +1,19 @@
+﻿@model TheChampion.ViewModels.LoginViewModel
+
+<div>
+    <form method="post">
+        <div>
+            <label style="color:red">@Model.Error</label>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-6">Login Name:</label><input class="col-md-6" type="text" name="LoginName" value="@Model.LoginName" />
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-6">Password:</label><input class="col-md-6" type="password" name="LoginPassword" value="@Model.LoginPassword" />
+        </div>
+        <div class="row col-md-5">
+            <button type="submit" value="submit" style="width:50%;align-self:center">Login</button>
+        </div>
+    </form>
+</div>
+
